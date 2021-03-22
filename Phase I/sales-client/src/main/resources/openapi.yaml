@@ -1,0 +1,7 @@
+openapi: 3.0.1
+info:
+  title: Your title goes here.
+  description: Replace this file with the YAML for your service.
+  version: "1.0"
+servers:
+- url: http://localhost:8081/api
