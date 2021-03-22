@@ -1,0 +1,51 @@
+plugins {
+	id 'java'
+	id 'application'
+}
+
+repositories {
+	jcenter()
+}
+
+dependencies {
+	def joobyVer =  '1.6.8'
+	compile group: 'org.jooby', name: 'jooby-netty', version: joobyVer
+	compile group: 'org.jooby', name: 'jooby-gson', version: joobyVer
+}
+
+run {
+	standardInput = System.in
+}
+
+task createMissingSourceDirs {
+	group = "Source Directories"
+	description = "Create all of the missing source directories for this project."
+	doFirst {
+		sourceSets.each { def sourceRoot ->
+			sourceRoot.allSource.srcDirTrees.each { def sourceDir ->
+				if(!sourceDir.dir.exists()) {
+					println "Creating ${sourceDir}"
+					mkdir sourceDir.dir
+				}
+			}
+		}
+	}
+}
+
+task deleteEmptySourceDirs {
+	group = "Source Directories"
+	description = "Delete all empty source directories."
+	doFirst {
+		sourceSets.each { def sourceRoot ->
+			sourceRoot.allSource.srcDirTrees.each { def sourceDir ->
+				if(sourceDir.dir.exists() && sourceDir.dir.isDirectory() && sourceDir.dir.list().length == 0) {
+					println "Removing empty ${sourceDir}"
+					sourceDir.dir.delete()
+				}
+			}
+		}
+	}
+
+}
+
+mainClassName = 'service.Server'
