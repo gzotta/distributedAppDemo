@@ -1,7 +1,27 @@
-openapi: 3.0.1
+openapi: 3.0.3
 info:
-  title: Your title goes here.
-  description: Replace this file with the YAML for your service.
-  version: "1.0"
+  title: Sales Service API
+  version: '1.0'
+  description: This is a RESTful service that collects sale information received from Vend.
+  x-logo:
+    url: ''
+  license: null
+  contact: null
 servers:
-- url: http://localhost:8080/api
+  - url: 'http://localhost:8080/api'
+    description: ''
+    variables: {}
+    x-last-modified: 1616562420738
+paths: {}
+components:
+  securitySchemes: {}
+  schemas: {}
+  responses: {}
+  parameters: {}
+tags:
+  - name: Sale
+    description: Sale
+    externalDocs: {}
+    x-last-modified: 1616562338993
+security: []
+externalDocs: null
