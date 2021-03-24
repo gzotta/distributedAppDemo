@@ -109,3 +109,9 @@ task deleteEmptySourceDirs {
 	}
 
 }
+
+// only run tests if we explicitly run the 'tests' task
+test.onlyIf { project.gradle.startParameter.taskNames.contains("test") }
+
+// run OpenAPI generator as a dependency of the standard build
+compileJava.dependsOn tasks.openApiGenerate
