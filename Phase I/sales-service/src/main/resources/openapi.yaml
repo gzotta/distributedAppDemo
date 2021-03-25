@@ -10,12 +10,33 @@ info:
 servers:
   - url: 'http://localhost:8080/api'
     description: ''
-    variables: {}
     x-last-modified: 1616562420738
 paths: {}
 components:
   securitySchemes: {}
-  schemas: {}
+  schemas:
+    Sale:
+      example: ''
+      type: object
+      enum: []
+      required:
+        - id
+        - saleDate
+      properties:
+        id:
+          type: string
+        saleDate:
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SaleItem'
+        totals:
+          $ref: '#/components/schemas/Totals'
+      description: Details for a sale.
+      x-last-modified: 1616619850266
   responses: {}
   parameters: {}
 tags:
