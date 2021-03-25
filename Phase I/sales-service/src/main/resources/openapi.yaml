@@ -13,15 +13,14 @@ servers:
     x-last-modified: 1616562420738
 paths: {}
 components:
-  securitySchemes: {}
   schemas:
     Sale:
-      example: ''
-      type: object
-      enum: []
+      description: Details for a sale.
       required:
         - id
         - saleDate
+      enum: []
+      type: object
       properties:
         id:
           type: string
@@ -35,8 +34,82 @@ components:
             $ref: '#/components/schemas/SaleItem'
         totals:
           $ref: '#/components/schemas/Totals'
-      description: Details for a sale.
+      example: ''
       x-last-modified: 1616619850266
+    Customer:
+      example: ''
+      type: object
+      enum: []
+      required:
+        - id
+        - group
+      properties:
+        id:
+          type: String
+        email:
+          type: String
+        group:
+          type: String
+      x-last-modified: 1616636717360
+      description: Details for a customer.
+    Totals:
+      example: ''
+      type: object
+      enum: []
+      required:
+        - totalPrice
+        - totalTax
+        - totalPayment
+      properties:
+        totalPrice:
+          type: Double
+        totalTax:
+          type: Double
+        totalPayment:
+          type: Double
+      x-last-modified: 1616636919569
+    SaleItem:
+      example: ''
+      type: object
+      enum: []
+      required:
+        - productId
+        - quantity
+        - price
+      properties:
+        productId:
+          type: String
+        quantity:
+          type: Double
+        price:
+          type: Double
+      x-last-modified: 1616637205338
+    Account:
+      example: ''
+      type: object
+      enum: []
+      required:
+        - id
+        - ' username'
+        - firstName
+        - lastName
+        - group
+      properties:
+        id:
+          type: String
+        email:
+          type: String
+        username:
+          type: String
+        firstName:
+          type: String
+        lastName:
+          type: String
+        group:
+          type: String
+      description: Details for an account.
+      x-last-modified: 1616637575167
+  securitySchemes: {}
   responses: {}
   parameters: {}
 tags:
