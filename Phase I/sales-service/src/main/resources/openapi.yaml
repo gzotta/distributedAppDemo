@@ -37,12 +37,12 @@ components:
       example: ''
       x-last-modified: 1616619850266
     Customer:
-      example: ''
-      type: object
-      enum: []
+      description: Details for a customer.
       required:
         - id
         - group
+      enum: []
+      type: object
       properties:
         id:
           type: String
@@ -50,16 +50,15 @@ components:
           type: String
         group:
           type: String
-      x-last-modified: 1616636717360
-      description: Details for a customer.
-    Totals:
       example: ''
-      type: object
-      enum: []
+      x-last-modified: 1616636717360
+    Totals:
       required:
         - totalPrice
         - totalTax
         - totalPayment
+      enum: []
+      type: object
       properties:
         totalPrice:
           type: Double
@@ -67,15 +66,15 @@ components:
           type: Double
         totalPayment:
           type: Double
+      example: ''
       x-last-modified: 1616636919569
     SaleItem:
-      example: ''
-      type: object
-      enum: []
       required:
         - productId
         - quantity
         - price
+      enum: []
+      type: object
       properties:
         productId:
           type: String
@@ -83,17 +82,18 @@ components:
           type: Double
         price:
           type: Double
+      example: ''
       x-last-modified: 1616637205338
     Account:
-      example: ''
-      type: object
-      enum: []
+      description: Details for an account.
       required:
         - id
         - ' username'
         - firstName
         - lastName
         - group
+      enum: []
+      type: object
       properties:
         id:
           type: String
@@ -107,8 +107,24 @@ components:
           type: String
         group:
           type: String
-      description: Details for an account.
+      example: ''
       x-last-modified: 1616637575167
+    Summary:
+      example: ''
+      type: object
+      enum: []
+      required:
+        - numberOfSales
+        - totalPayment
+        - group
+      properties:
+        numberOfSales:
+          type: Integer
+        totalPayment:
+          type: Double
+        group:
+          type: String
+      x-last-modified: 1616638327415
   securitySchemes: {}
   responses: {}
   parameters: {}
