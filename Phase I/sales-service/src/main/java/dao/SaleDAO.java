@@ -5,6 +5,7 @@ import com.google.common.collect.Multimap;
 import domain.Customer;
 import domain.Sale;
 import domain.SaleItem;
+import domain.Summary;
 import domain.Totals;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -45,14 +46,26 @@ public class SaleDAO {
         customerSales.put(sale.getCustomer().getId(), sale);
     }
 
-    
     // Get all sales for a specific customer.
-    public Collection<Sale> getByCustomer(String customerId) {
-        Collection<Sale> custSales = customerSales.get(customerId);
-        return custSales;
+    public List<Sale> getByCustomer(String customerId) {
+        return new ArrayList<>(customerSales.get(customerId));
     }
 
-    
-    
-    
+    // Get a summary of the sale data for a specific customer.
+    public Summary getSummary(String clientId) {
+        Integer numOfSales = 0;
+        Double totPayment = 0.0;
+        String group = "Regular Customers";
+        List<Sale> salesById = getByCustomer(clientId);
+        for (Sale sale : salesById) {
+            numOfSales++;
+            totPayment += sale.getTotals().getTotalPayment();
+        }
+        if (totPayment >= 5000.0) {
+            group = "VIP Customers";
+        }
+
+        Summary clientSummary = new Summary(numOfSales, totPayment, group);
+        return clientSummary;
+    }
 }
