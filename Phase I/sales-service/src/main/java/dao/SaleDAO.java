@@ -1,10 +1,15 @@
 package dao;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import domain.Customer;
 import domain.Sale;
 import domain.SaleItem;
 import domain.Totals;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -15,6 +20,7 @@ import java.util.TreeMap;
 public class SaleDAO {
 
     private static final Map<String, Sale> sales = new TreeMap<>();
+    private static final Multimap<String, Sale> customerSales = ArrayListMultimap.create();
 
     /*
 	 * Some dummy data for testing
@@ -28,18 +34,25 @@ public class SaleDAO {
             sales.put("id2", new Sale("id2", "02/02/21", new Customer("customerid2", "email2", "group2"), items, new Totals(112.0, 0.16, 112.16), "http://localhost:8080/api/sales/id2"));
         }
     }
+
+    /**
+     * Adds a new sale
+     *
+     * @param sale The sale being added.
+     */
+    public void addSale(Sale sale) {
+        sales.put(sale.getId(), sale);
+        customerSales.put(sale.getCustomer().getId(), sale);
+    }
+
+    
+    // Get all sales for a specific customer.
+    public Collection<Sale> getByCustomer(String customerId) {
+        Collection<Sale> custSales = customerSales.get(customerId);
+        return custSales;
+    }
+
     
     
-    	/**
-	 * Adds a new sale
-	 *
-	 * @param sale The sale being added.
-	 */
-	public void addSale(Sale sale) {
-		sales.put(sale.getId(), sale);
-	}
-        
-        
-
-
+    
 }
