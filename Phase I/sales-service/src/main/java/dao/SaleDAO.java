@@ -68,17 +68,21 @@ public class SaleDAO {
         Summary clientSummary = new Summary(numOfSales, totPayment, group);
         return clientSummary;
     }
-    
-    
+
     // Delete a sale.
-    public void delete(String saleId, Sale sale){
+    public void delete(String saleId, Sale sale) {
         sales.remove(saleId);
         customerSales.remove(sale.getCustomer().getId(), sale);
     }
-    
-    
-    
-    
-    
-    
+
+    /**
+     * Checks if a sale exists.
+     *
+     * @param id The ID of the sale being checked.
+     * @return <code>true</code> if product exists, <code>false</code> if not.
+     */
+    public boolean exists(String id) {
+        return sales.containsKey(id);
+    }
+
 }
