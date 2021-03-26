@@ -46,14 +46,12 @@ public class SaleResource extends Jooby {
 
             });
 
-            
             //Get a customer's sales summary.
             get("/:id", (req) -> {
                 String id = req.param("id").value();
                 return dao.getSummary(id);
             });
 
-            
             //Delete a sale. 
             delete("/:id", (req, rsp) -> {
                 String id = req.param("id").value();
@@ -62,6 +60,6 @@ public class SaleResource extends Jooby {
                 rsp.status(Status.NO_CONTENT);
             });
 
-            }).produces(MediaType.json).consumes(MediaType.json);
-        }
+        }).produces(MediaType.json).consumes(MediaType.json);
     }
+}
