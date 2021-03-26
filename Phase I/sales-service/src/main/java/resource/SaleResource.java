@@ -18,7 +18,7 @@ public class SaleResource extends Jooby {
 
     public SaleResource(SaleDAO dao) {
 
-        path("/api/Sales/sale/customer", () -> {
+        path("/api/Sales/sale/{id}/customer", () -> {
 
             // A route that sits at the top of the chain that checks that the ID
             // is valid so that the other routes don't need to.
