@@ -68,4 +68,17 @@ public class SaleDAO {
         Summary clientSummary = new Summary(numOfSales, totPayment, group);
         return clientSummary;
     }
+    
+    
+    // Delete a sale.
+    public void delete(String saleId, Sale sale){
+        sales.remove(saleId);
+        customerSales.remove(sale.getCustomer().getId(), sale);
+    }
+    
+    
+    
+    
+    
+    
 }
