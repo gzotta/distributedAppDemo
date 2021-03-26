@@ -45,6 +45,12 @@ public class SaleDAO {
         sales.put(sale.getId(), sale);
         customerSales.put(sale.getCustomer().getId(), sale);
     }
+    
+    // Get a sale by the sale's ID.
+    public Sale getById(String saleId){
+        return sales.get(saleId);
+    }
+    
 
     // Get all sales for a specific customer.
     public List<Sale> getByCustomer(String customerId) {

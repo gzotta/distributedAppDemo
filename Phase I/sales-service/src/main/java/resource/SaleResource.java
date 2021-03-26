@@ -7,7 +7,9 @@ package resource;
 
 import dao.SaleDAO;
 import domain.ErrorMessage;
+import domain.Sale;
 import org.jooby.Jooby;
+import org.jooby.MediaType;
 import org.jooby.Status;
 
 /**
@@ -18,7 +20,7 @@ public class SaleResource extends Jooby {
 
     public SaleResource(SaleDAO dao) {
 
-        path("/api/Sales/sale/{id}/customer", () -> {
+        path("/api/Sales/sale/", () -> {
 
             // A route that sits at the top of the chain that checks that the ID
             // is valid so that the other routes don't need to.
@@ -34,12 +36,32 @@ public class SaleResource extends Jooby {
                 }
             });
 
+            //Get a sale by customer ID.
             get("/:id", (req) -> {
                 String id = req.param("id").value();
-                return dao.getByCustomer(id);
+                //Sale sale = req.body().to(Sale.class);
+                Sale sale = dao.getById(id);
+                String customerId = sale.getCustomer().getId();
+                return dao.getByCustomer(customerId);
+
             });
 
-        });
+            
+            //Get a customer's sales summary.
+            get("/:id", (req) -> {
+                String id = req.param("id").value();
+                return dao.getSummary(id);
+            });
 
+            
+            //Delete a sale. 
+            delete("/:id", (req, rsp) -> {
+                String id = req.param("id").value();
+                Sale sale = dao.getById(id);
+                dao.delete(id, sale);
+                rsp.status(Status.NO_CONTENT);
+            });
+
+            }).produces(MediaType.json).consumes(MediaType.json);
+        }
     }
-}
