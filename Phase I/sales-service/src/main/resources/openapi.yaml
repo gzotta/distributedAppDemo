@@ -5,8 +5,6 @@ info:
   description: This is a RESTful service that collects sale information received from Vend.
   x-logo:
     url: ''
-  license: null
-  contact: null
 servers:
   - url: 'http://localhost:8081/api'
     description: ''
@@ -33,11 +31,9 @@ paths:
             <p>Sale successfully created.</p> <p>The URI of new sale is
             available in the <code>uri</code> field of the response.  The new
             sale is returned in the response.</p>
-          type: ''
           x-last-modified: 1616803117106
         '422':
           description: Sale <b>NOT</b> created.  A sale with that ID already exists.
-          type: ''
           x-last-modified: 1616803179226
       operationId: add sale
       summary: Add a new sale
@@ -52,32 +48,21 @@ paths:
           name: id
           description: The ID of the sale.
           schema:
-            format: ''
-            pattern: ''
-            enum: []
-            type: string
             example: ''
           in: path
           required: true
-          type: string
-          format: ''
-          pattern: ''
-          enum: []
           x-last-modified: 1616804006881
       responses:
         '204':
           description: Sale successfully deleted.
-          type: ''
-          x-last-modified: 1616821734258
         '404':
           description: No sale matching the supplied ID was found.
-          type: ''
           x-last-modified: 1616821759575
       operationId: delete
       summary: Delete sale.
       description: Delete the sale that matches the supplied ID from the sales.
     x-last-modified: 1616803401972
-  '/sales/sale/{id}/customer/{id}':
+  '/sales/sale/{saleId}/customer/{customerId}':
     summary: Customer sale's information.
     get:
       tags:
@@ -85,21 +70,20 @@ paths:
       parameters:
         - deprecated: false
           example: ''
-          name: id
-          description: The ID of the customer.
+          name: saleId
+          description: ID of the sale.
           schema:
-            format: ''
-            pattern: ''
-            enum: []
-            type: string
             example: ''
           in: path
           required: true
-          type: string
-          format: ''
-          pattern: ''
-          enum: []
-          x-last-modified: 1616822027402
+        - deprecated: false
+          example: ''
+          name: customerId
+          description: ID of the customer.
+          schema:
+            example: ''
+          in: path
+          required: true
       responses:
         '200':
           content:
@@ -114,14 +98,16 @@ paths:
               items:
                 $ref: '#/components/schemas/Sale'
           description: Response contains an array of all of sales of a specific customer.
-          type: ''
           x-last-modified: 1616819760629
+        '404':
+          description: No customer matching the supplied ID was found.
+          x-last-modified: 1616825631041
       operationId: get by customer
       summary: Get sales by customer ID.
       description: |
         <p>Get all the sales that match the customer ID provided.</p>
-    x-last-modified: 1616819397436
-  '/sales/sale/{id}/customer/{id}/summary':
+    x-last-modified: 1616826573741
+  '/sales/sale/{saleId}/customer/{customerId}/summary':
     summary: 'Get a summary for the sale data of a specific customer. '
     description: >-
       The summary contains the number of sales, total payment, and group for a
@@ -132,21 +118,20 @@ paths:
       parameters:
         - deprecated: false
           example: ''
-          name: id
-          description: 'The ID of the customer. '
+          name: saleId
+          description: ID of the sale.
           schema:
-            format: ''
-            pattern: ''
-            enum: []
-            type: string
             example: ''
           in: path
           required: true
-          type: string
-          format: ''
-          pattern: ''
-          enum: []
-          x-last-modified: 1616820473001
+        - deprecated: false
+          example: ''
+          name: customerId
+          description: ID of the customer.
+          schema:
+            example: ''
+          in: path
+          required: true
       responses:
         '200':
           content:
@@ -156,16 +141,14 @@ paths:
           description: >-
             Response contains a summary of the sales data of a specific
             customer. 
-          type: ''
           x-last-modified: 1616820406441
         '404':
           description: No customer matching the supplied ID was found.
-          type: ''
           x-last-modified: 1616820535388
       operationId: get summary
       summary: Get customer's sales summary.
       description: 'Get a summary of the sale data for a specific customer. '
-    x-last-modified: 1616820133694
+    x-last-modified: 1616826622463
 components:
   schemas:
     Account:
@@ -176,7 +159,6 @@ components:
         - firstName
         - lastName
         - group
-      enum: []
       type: object
       properties:
         id:
@@ -198,7 +180,6 @@ components:
       required:
         - id
         - group
-      enum: []
       type: object
       properties:
         id:
@@ -214,7 +195,6 @@ components:
       required:
         - id
         - saleDate
-      enum: []
       type: object
       properties:
         id:
@@ -236,7 +216,6 @@ components:
         - totalPrice
         - totalTax
         - totalPayment
-      enum: []
       type: object
       properties:
         totalPrice:
@@ -252,7 +231,6 @@ components:
         - productId
         - quantity
         - price
-      enum: []
       type: object
       properties:
         productId:
@@ -267,8 +245,6 @@ components:
       required:
         - numberOfSales
         - totalPayment
-        - group
-      enum: []
       type: object
       properties:
         numberOfSales:

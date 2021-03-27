@@ -12,29 +12,28 @@ import resource.SalesResource;
 
 public class Server extends Jooby {
 
-	public Server() {
+    public Server() {
 
-		// the port that the service will run on (should be different for each service)
-		port(8081);
-                
-		// add CORS support so the client can access the operations
-		use("*", new CorsHandler(new Cors().withMethods("*")));
+// add CORS support so the client can access the operations
+        use("*", new CorsHandler(new Cors().withMethods("*")));
 
-                SaleDAO dao = new SaleDAO();
-                
-		// encode message bodies as JSON
-		use(new Gzon());
-                
-                use(new SalesResource(dao));
-                use(new SaleResource(dao));
-                use(new CustomerResource(dao));
-                
+// the port that the service will run on (should be different for each service)
+        port(8081);
 
-	}
+        SaleDAO dao = new SaleDAO();
 
-	public static void main(String[] args) throws IOException {
-		// start the service
-		new Server().start();
-	}
+        // encode message bodies as JSON
+        use(new Gzon());
+
+        use(new SalesResource(dao));
+        use(new SaleResource(dao));
+        use(new CustomerResource(dao));
+
+    }
+
+    public static void main(String[] args) throws IOException {
+        // start the service
+        new Server().start();
+    }
 
 }

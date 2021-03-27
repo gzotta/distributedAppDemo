@@ -43,7 +43,7 @@ public class SaleDAO {
      */
     public void addSale(Sale sale) {
         sales.put(sale.getId(), sale);
-        customerSales.put(sale.getCustomer().getId(), sale);
+        //customerSales.put(sale.getCustomer().getId(), sale);
     }
     
     // Get a sale by the sale's ID.

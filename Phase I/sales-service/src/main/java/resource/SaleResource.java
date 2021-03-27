@@ -36,9 +36,15 @@ public class SaleResource extends Jooby {
                 }
             });
 
-    
-
-   
+    ///////////////////////////////////////////////////////////
+	get("/:id", (req) -> {
+				String id = req.param("id").value();
+				return dao.getById(id);
+			});
+   /////////////////////////////////////////////////////////////////
+        
+        
+        
             //Delete a sale. 
             delete("/:id", (req, rsp) -> {
                 String id = req.param("id").value();
