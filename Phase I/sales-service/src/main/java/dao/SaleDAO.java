@@ -31,8 +31,8 @@ public class SaleDAO {
             Map<String, SaleItem> items = new TreeMap<>();
             items.put("prodId1", new SaleItem("prodId1", 1.0, 11.0));
             items.put("prodId2", new SaleItem("prodId2", 2.0, 12.0));
-            sales.put("id1", new Sale("id1", "01/02/21", new Customer("customerid1", "email1", "group1"), items, new Totals(111.0, 0.16, 111.16), "http://localhost:8080/api/sales/id1"));
-            sales.put("id2", new Sale("id2", "02/02/21", new Customer("customerid2", "email2", "group2"), items, new Totals(112.0, 0.16, 112.16), "http://localhost:8080/api/sales/id2"));
+            sales.put("id1", new Sale("id1", "01/02/21", new Customer("customerid1", "email1", "group1"), items, new Totals(111.0, 0.16, 111.16), "http://localhost:8081/api/sales/sale/id1"));
+            sales.put("id2", new Sale("id2", "02/02/21", new Customer("customerid2", "email2", "group2"), items, new Totals(112.0, 0.16, 112.16), "http://localhost:8081/api/sales/sale/id2"));
         }
     }
 
@@ -90,5 +90,18 @@ public class SaleDAO {
     public boolean exists(String id) {
         return sales.containsKey(id);
     }
+    
+    
+        /**
+     * Checks if a customer exists.
+     *
+     * @param id The ID of the customer being checked.
+     * @return <code>true</code> if product exists, <code>false</code> if not.
+     */
+    public boolean customerExists(String id) {
+        return customerSales.containsKey(id);
+    }
+    
+    
 
 }

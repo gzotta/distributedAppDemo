@@ -20,14 +20,14 @@ public class CustomerResource extends Jooby {
 
     public CustomerResource(SaleDAO dao) {
 
-        path("/api/Sales/sale/{id}/customer/", () -> {
+        path("/api/sales/sale/{saleId}/customer/", () -> {
 
             // A route that sits at the top of the chain that checks that the ID
             // is valid so that the other routes don't need to.
-            use("/:id", (req, rsp, chain) -> {
-                String id = req.param("id").value();
+            use("/:customerId", (req, rsp, chain) -> {
+                String id = req.param("customerId").value();
 
-                if (dao.exists(id)) {
+                if (dao.customerExists(id)) {
                     // ID is OK, so pass request on to the next route in the chain
                     chain.next(req, rsp);
                 } else {
@@ -37,15 +37,15 @@ public class CustomerResource extends Jooby {
             });
 
             //Get all sales for a specific customer.
-            get("/:id", (req) -> {
-                String id = req.param("id").value();
+            get("/:customerId", (req) -> {
+                String id = req.param("customerId").value();
                 return dao.getByCustomer(id);
 
             });
 
             //Get a customer's sales summary.
-            get("/:id", (req) -> {
-                String id = req.param("id").value();
+            get("/:customerId", (req) -> {
+                String id = req.param("customerId").value();
                 return dao.getSummary(id);
             });
 
