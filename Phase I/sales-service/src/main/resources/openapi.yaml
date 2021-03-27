@@ -8,10 +8,69 @@ info:
   license: null
   contact: null
 servers:
-  - url: 'http://localhost:8080/api'
+  - url: 'http://localhost:8081/api'
     description: ''
-    x-last-modified: 1616562420738
-paths: {}
+    variables: {}
+    x-last-modified: 1616802607142
+paths:
+  /sales:
+    post:
+      tags:
+        - Sales
+      operationId: add sale
+      summary: Add a new sale
+      responses:
+        '201':
+          type: ''
+          description: >-
+            <p>Sale successfully created.</p> <p>The URI of new sale is
+            available in the <code>uri</code> field of the response.  The new
+            sale is returned in the response.</p>
+          content:
+            application/json:
+              encoding: ''
+              schema:
+                $ref: '#/components/schemas/Sale'
+          x-last-modified: 1616803117106
+        '422':
+          type: ''
+          description: Sale <b>NOT</b> created.  A sale with that ID already exists.
+          x-last-modified: 1616803179226
+      requestBody:
+        description: Details for the sale.
+        required: true
+        content:
+          application/json:
+            encoding: ''
+            schema:
+              $ref: '#/components/schemas/Sale'
+    x-last-modified: 1616802816218
+  '/sales/sale/{id}':
+    delete:
+      tags:
+        - Sale
+      operationId: delete
+      summary: Delete sale.
+      description: Delete the sale that matches the supplied ID from the sales.
+      parameters:
+        - name: id
+          in: path
+          example: ''
+          required: true
+          deprecated: false
+          description: The ID of the sale.
+          schema:
+            example: ''
+            type: string
+            format: ''
+            pattern: ''
+            enum: []
+          type: string
+          format: ''
+          pattern: ''
+          enum: []
+          x-last-modified: 1616804006881
+    x-last-modified: 1616803401972
 components:
   schemas:
     Sale:
@@ -110,13 +169,12 @@ components:
       example: ''
       x-last-modified: 1616637575167
     Summary:
-      example: ''
-      type: object
-      enum: []
       required:
         - numberOfSales
         - totalPayment
         - group
+      enum: []
+      type: object
       properties:
         numberOfSales:
           type: Integer
@@ -124,6 +182,7 @@ components:
           type: Double
         group:
           type: String
+      example: ''
       x-last-modified: 1616638327415
   securitySchemes: {}
   responses: {}
@@ -133,5 +192,9 @@ tags:
     description: Sale
     externalDocs: {}
     x-last-modified: 1616562338993
+  - name: Sales
+    description: Sales
+    externalDocs: {}
+    x-last-modified: 1616802584737
 security: []
 externalDocs: null

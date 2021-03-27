@@ -16,11 +16,11 @@ import org.jooby.Status;
  *
  * @author zotta
  */
-public class SaleResource extends Jooby {
+public class CustomerResource extends Jooby {
 
-    public SaleResource(SaleDAO dao) {
+    public CustomerResource(SaleDAO dao) {
 
-        path("/api/Sales/sale/", () -> {
+        path("/api/Sales/sale/{id}/customer/", () -> {
 
             // A route that sits at the top of the chain that checks that the ID
             // is valid so that the other routes don't need to.
@@ -36,15 +36,17 @@ public class SaleResource extends Jooby {
                 }
             });
 
-    
-
-   
-            //Delete a sale. 
-            delete("/:id", (req, rsp) -> {
+            //Get all sales for a specific customer.
+            get("/:id", (req) -> {
                 String id = req.param("id").value();
-                Sale sale = dao.getById(id);
-                dao.delete(sale.getCustomer().getId(), sale);
-                rsp.status(Status.NO_CONTENT);
+                return dao.getByCustomer(id);
+
+            });
+
+            //Get a customer's sales summary.
+            get("/:id", (req) -> {
+                String id = req.param("id").value();
+                return dao.getSummary(id);
             });
 
         }).produces(MediaType.json).consumes(MediaType.json);
