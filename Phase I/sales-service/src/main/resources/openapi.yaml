@@ -10,69 +10,205 @@ info:
 servers:
   - url: 'http://localhost:8081/api'
     description: ''
-    variables: {}
     x-last-modified: 1616802607142
 paths:
   /sales:
     post:
+      requestBody:
+        description: Details for the sale.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sale'
+        required: true
       tags:
         - Sales
-      operationId: add sale
-      summary: Add a new sale
       responses:
         '201':
-          type: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sale'
           description: >-
             <p>Sale successfully created.</p> <p>The URI of new sale is
             available in the <code>uri</code> field of the response.  The new
             sale is returned in the response.</p>
-          content:
-            application/json:
-              encoding: ''
-              schema:
-                $ref: '#/components/schemas/Sale'
+          type: ''
           x-last-modified: 1616803117106
         '422':
-          type: ''
           description: Sale <b>NOT</b> created.  A sale with that ID already exists.
+          type: ''
           x-last-modified: 1616803179226
-      requestBody:
-        description: Details for the sale.
-        required: true
-        content:
-          application/json:
-            encoding: ''
-            schema:
-              $ref: '#/components/schemas/Sale'
+      operationId: add sale
+      summary: Add a new sale
     x-last-modified: 1616802816218
   '/sales/sale/{id}':
     delete:
       tags:
         - Sale
-      operationId: delete
-      summary: Delete sale.
-      description: Delete the sale that matches the supplied ID from the sales.
       parameters:
-        - name: id
-          in: path
+        - deprecated: false
           example: ''
-          required: true
-          deprecated: false
+          name: id
           description: The ID of the sale.
           schema:
-            example: ''
-            type: string
             format: ''
             pattern: ''
             enum: []
+            type: string
+            example: ''
+          in: path
+          required: true
           type: string
           format: ''
           pattern: ''
           enum: []
           x-last-modified: 1616804006881
+      responses:
+        '204':
+          description: Sale successfully deleted.
+          type: ''
+          x-last-modified: 1616821734258
+        '404':
+          description: No sale matching the supplied ID was found.
+          type: ''
+          x-last-modified: 1616821759575
+      operationId: delete
+      summary: Delete sale.
+      description: Delete the sale that matches the supplied ID from the sales.
     x-last-modified: 1616803401972
+  '/sales/sale/{id}/customer/{id}':
+    summary: Customer sale's information.
+    get:
+      tags:
+        - Customer
+      parameters:
+        - deprecated: false
+          example: ''
+          name: id
+          description: The ID of the customer.
+          schema:
+            format: ''
+            pattern: ''
+            enum: []
+            type: string
+            example: ''
+          in: path
+          required: true
+          type: string
+          format: ''
+          pattern: ''
+          enum: []
+          x-last-modified: 1616822027402
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sale'
+                example: ''
+              example: ''
+              type: array
+              items:
+                $ref: '#/components/schemas/Sale'
+          description: Response contains an array of all of sales of a specific customer.
+          type: ''
+          x-last-modified: 1616819760629
+      operationId: get by customer
+      summary: Get sales by customer ID.
+      description: |
+        <p>Get all the sales that match the customer ID provided.</p>
+    x-last-modified: 1616819397436
+  '/sales/sale/{id}/customer/{id}/summary':
+    summary: 'Get a summary for the sale data of a specific customer. '
+    description: >-
+      The summary contains the number of sales, total payment, and group for a
+      specific customer. 
+    get:
+      tags:
+        - ' Summary'
+      parameters:
+        - deprecated: false
+          example: ''
+          name: id
+          description: 'The ID of the customer. '
+          schema:
+            format: ''
+            pattern: ''
+            enum: []
+            type: string
+            example: ''
+          in: path
+          required: true
+          type: string
+          format: ''
+          pattern: ''
+          enum: []
+          x-last-modified: 1616820473001
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Summary'
+          description: >-
+            Response contains a summary of the sales data of a specific
+            customer. 
+          type: ''
+          x-last-modified: 1616820406441
+        '404':
+          description: No customer matching the supplied ID was found.
+          type: ''
+          x-last-modified: 1616820535388
+      operationId: get summary
+      summary: Get customer's sales summary.
+      description: 'Get a summary of the sale data for a specific customer. '
+    x-last-modified: 1616820133694
 components:
   schemas:
+    Account:
+      description: Details for an account.
+      required:
+        - id
+        - ' username'
+        - firstName
+        - lastName
+        - group
+      enum: []
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        group:
+          type: string
+      example: ''
+      x-last-modified: 1616821575404
+    Customer:
+      description: Details for a customer.
+      required:
+        - id
+        - group
+      enum: []
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        group:
+          type: string
+      example: ''
+      x-last-modified: 1616821618547
     Sale:
       description: Details for a sale.
       required:
@@ -94,23 +230,7 @@ components:
         totals:
           $ref: '#/components/schemas/Totals'
       example: ''
-      x-last-modified: 1616619850266
-    Customer:
-      description: Details for a customer.
-      required:
-        - id
-        - group
-      enum: []
-      type: object
-      properties:
-        id:
-          type: String
-        email:
-          type: String
-        group:
-          type: String
-      example: ''
-      x-last-modified: 1616636717360
+      x-last-modified: 1616821629374
     Totals:
       required:
         - totalPrice
@@ -120,13 +240,13 @@ components:
       type: object
       properties:
         totalPrice:
-          type: Double
+          type: number
         totalTax:
-          type: Double
+          type: number
         totalPayment:
-          type: Double
+          type: number
       example: ''
-      x-last-modified: 1616636919569
+      x-last-modified: 1616822243184
     SaleItem:
       required:
         - productId
@@ -136,38 +256,13 @@ components:
       type: object
       properties:
         productId:
-          type: String
+          type: string
         quantity:
-          type: Double
+          type: number
         price:
-          type: Double
+          type: number
       example: ''
-      x-last-modified: 1616637205338
-    Account:
-      description: Details for an account.
-      required:
-        - id
-        - ' username'
-        - firstName
-        - lastName
-        - group
-      enum: []
-      type: object
-      properties:
-        id:
-          type: String
-        email:
-          type: String
-        username:
-          type: String
-        firstName:
-          type: String
-        lastName:
-          type: String
-        group:
-          type: String
-      example: ''
-      x-last-modified: 1616637575167
+      x-last-modified: 1616822258608
     Summary:
       required:
         - numberOfSales
@@ -177,13 +272,13 @@ components:
       type: object
       properties:
         numberOfSales:
-          type: Integer
+          type: integer
         totalPayment:
-          type: Double
+          type: number
         group:
-          type: String
+          type: string
       example: ''
-      x-last-modified: 1616638327415
+      x-last-modified: 1616822296036
   securitySchemes: {}
   responses: {}
   parameters: {}
@@ -196,5 +291,13 @@ tags:
     description: Sales
     externalDocs: {}
     x-last-modified: 1616802584737
+  - name: Customer
+    description: Customer
+    externalDocs: {}
+    x-last-modified: 1616819374501
+  - name: ' Summary'
+    description: ' Summary'
+    externalDocs: {}
+    x-last-modified: 1616819378960
 security: []
 externalDocs: null
