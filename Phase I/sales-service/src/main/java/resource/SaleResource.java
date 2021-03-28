@@ -49,7 +49,7 @@ public class SaleResource extends Jooby {
             delete("/:id", (req, rsp) -> {
                 String id = req.param("id").value();
                 Sale sale = dao.getById(id);
-                dao.delete(sale.getCustomer().getId(), sale);
+                dao.delete(id, sale);
                 rsp.status(Status.NO_CONTENT);
             });
 
