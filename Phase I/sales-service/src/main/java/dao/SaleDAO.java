@@ -28,11 +28,14 @@ public class SaleDAO {
      */
     static {
         if (sales.isEmpty()) {
-            Map<String, SaleItem> items = new TreeMap<>();
-            items.put("prodId1", new SaleItem("prodId1", 1.0, 11.0));
-            items.put("prodId2", new SaleItem("prodId2", 2.0, 12.0));
-            sales.put("id1", new Sale("id1", "01/02/21", new Customer("customerid1", "email1", "group1"), items, new Totals(111.0, 0.16, 111.16), "http://localhost:8081/api/sales/sale/id1"));
-            sales.put("id2", new Sale("id2", "02/02/21", new Customer("customerid2", "email2", "group2"), items, new Totals(112.0, 0.16, 112.16), "http://localhost:8081/api/sales/sale/id2"));
+            Map<String, SaleItem> items1 = new TreeMap<>();
+            Map<String, SaleItem> items2 = new TreeMap<>();
+            SaleItem item1 = new SaleItem("prodId1", 1.0, 11.0);
+            SaleItem item2 = new SaleItem("prodId1", 1.0, 11.0);
+            items1.put("prodId1", item1);
+            items2.put("prodId2", item2);
+            sales.put("id1", new Sale("id1", "01/02/21", new Customer("customerid1", "email1", "group1"), items1, new Totals(111.0, 0.16, 111.16), "http://localhost:8081/api/sales/sale/id1"));
+            sales.put("id2", new Sale("id2", "02/02/21", new Customer("customerid2", "email2", "group2"), items2, new Totals(112.0, 0.16, 112.16), "http://localhost:8081/api/sales/sale/id2"));
         }
     }
 
