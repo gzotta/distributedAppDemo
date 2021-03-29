@@ -18,6 +18,12 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Sale'
+            example:
+              id: string
+              saleDate: string
+              customer: '#/components/schemas/Customer'
+              items: array
+              totals: '#/components/schemas/Totals'
         required: true
       tags:
         - Sales
@@ -62,20 +68,12 @@ paths:
       summary: Delete sale.
       description: Delete the sale that matches the supplied ID from the sales.
     x-last-modified: 1616803401972
-  '/sales/sale/{saleId}/customer/{customerId}':
-    summary: Customer sale's information.
+  '/sales/customers/{customerId}':
+    summary: Customer sales.
     get:
       tags:
-        - Customer
+        - Sales
       parameters:
-        - deprecated: false
-          example: ''
-          name: saleId
-          description: ID of the sale.
-          schema:
-            example: ''
-          in: path
-          required: true
         - deprecated: false
           example: ''
           name: customerId
@@ -89,9 +87,13 @@ paths:
           content:
             application/json:
               schema:
+                description: ''
                 type: array
                 items:
                   $ref: '#/components/schemas/Sale'
+                externalDocs:
+                  description: ''
+                  url: ''
                 example: ''
               example: ''
               type: array
@@ -106,24 +108,16 @@ paths:
       summary: Get sales by customer ID.
       description: |
         <p>Get all the sales that match the customer ID provided.</p>
-    x-last-modified: 1616826573741
-  '/sales/sale/{saleId}/customer/{customerId}/summary':
+    x-last-modified: 1616998201933
+  '/sales/summary/customers/{customerId}':
     summary: 'Get a summary for the sale data of a specific customer. '
     description: >-
       The summary contains the number of sales, total payment, and group for a
       specific customer. 
     get:
       tags:
-        - ' Summary'
+        - Sales
       parameters:
-        - deprecated: false
-          example: ''
-          name: saleId
-          description: ID of the sale.
-          schema:
-            example: ''
-          in: path
-          required: true
         - deprecated: false
           example: ''
           name: customerId
@@ -148,7 +142,7 @@ paths:
       operationId: get summary
       summary: Get customer's sales summary.
       description: 'Get a summary of the sale data for a specific customer. '
-    x-last-modified: 1616826622463
+    x-last-modified: 1616998893211
 components:
   schemas:
     Account:
@@ -256,6 +250,7 @@ components:
       example: ''
       x-last-modified: 1616822296036
   securitySchemes: {}
+  headers: {}
   responses: {}
   parameters: {}
 tags:
@@ -267,13 +262,4 @@ tags:
     description: Sales
     externalDocs: {}
     x-last-modified: 1616802584737
-  - name: Customer
-    description: Customer
-    externalDocs: {}
-    x-last-modified: 1616819374501
-  - name: ' Summary'
-    description: ' Summary'
-    externalDocs: {}
-    x-last-modified: 1616819378960
 security: []
-externalDocs: null
