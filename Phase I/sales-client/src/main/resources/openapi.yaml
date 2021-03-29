@@ -1,3 +1,7 @@
+
+
+
+
 openapi: 3.0.3
 info:
   title: Sales Service API
@@ -88,6 +92,9 @@ paths:
             application/json:
               schema:
                 description: ''
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sale'
                 externalDocs:
                   description: ''
                   url: ''
@@ -178,27 +185,6 @@ components:
           type: string
       example: ''
       x-last-modified: 1616821618547
-    Sale:
-      description: Details for a sale.
-      required:
-        - id
-        - saleDate
-      type: object
-      properties:
-        id:
-          type: string
-        saleDate:
-          type: string
-        customer:
-          $ref: '#/components/schemas/Customer'
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/SaleItem'
-        totals:
-          $ref: '#/components/schemas/Totals'
-      example: ''
-      x-last-modified: 1616821629374
     Totals:
       required:
         - totalPrice
@@ -243,6 +229,28 @@ components:
           type: string
       example: ''
       x-last-modified: 1616822296036
+    Sale:
+      description: Details for a sale.
+      required:
+        - id
+        - saleDate
+      type: object
+      properties:
+        id:
+          type: string
+        saleDate:
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SaleItem'
+        totals:
+          $ref: '#/components/schemas/Totals'
+        uri:
+          type: string
+      x-last-modified: 1617058162734
   securitySchemes: {}
   headers: {}
   responses: {}
