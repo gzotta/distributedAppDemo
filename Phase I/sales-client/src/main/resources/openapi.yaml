@@ -1,7 +1,257 @@
-openapi: 3.0.1
+openapi: 3.0.3
 info:
-  title: Your title goes here.
-  description: Replace this file with the YAML for your service.
-  version: "1.0"
+  title: Sales Service API
+  version: '1.0'
+  description: This is a RESTful service that collects sale information received from Vend.
+  x-logo:
+    url: ''
 servers:
-- url: http://localhost:8081/api
+  - url: 'http://localhost:8081/api'
+    description: ''
+    x-last-modified: 1616802607142
+paths:
+  /sales:
+    post:
+      requestBody:
+        description: Details for the sale.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sale'
+            example:
+              id: string
+              saleDate: string
+              customer: '#/components/schemas/Customer'
+              items: array
+              totals: '#/components/schemas/Totals'
+        required: true
+      tags:
+        - Sales
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sale'
+          description: >-
+            <p>Sale successfully created.</p> <p>The URI of new sale is
+            available in the <code>uri</code> field of the response.  The new
+            sale is returned in the response.</p>
+          x-last-modified: 1616803117106
+        '422':
+          description: Sale <b>NOT</b> created.  A sale with that ID already exists.
+          x-last-modified: 1616803179226
+      operationId: add sale
+      summary: Add a new sale
+    x-last-modified: 1616802816218
+  '/sales/sale/{id}':
+    delete:
+      tags:
+        - Sale
+      parameters:
+        - deprecated: false
+          example: ''
+          name: id
+          description: The ID of the sale.
+          schema:
+            example: ''
+          in: path
+          required: true
+          x-last-modified: 1616804006881
+      responses:
+        '204':
+          description: Sale successfully deleted.
+        '404':
+          description: No sale matching the supplied ID was found.
+          x-last-modified: 1616821759575
+      operationId: delete
+      summary: Delete sale.
+      description: Delete the sale that matches the supplied ID from the sales.
+    x-last-modified: 1616803401972
+  '/sales/customers/{customerId}':
+    summary: Customer sales.
+    get:
+      tags:
+        - Sales
+      parameters:
+        - deprecated: false
+          example: ''
+          name: customerId
+          description: ID of the customer.
+          schema:
+            example: ''
+          in: path
+          required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                description: ''
+                externalDocs:
+                  description: ''
+                  url: ''
+                example: ''
+              example: ''
+          description: Response contains an array of all of sales of a specific customer.
+          x-last-modified: 1616819760629
+        '404':
+          description: No customer matching the supplied ID was found.
+          x-last-modified: 1616825631041
+      operationId: get by customer
+      summary: Get sales by customer ID.
+      description: |
+        <p>Get all the sales that match the customer ID provided.</p>
+    x-last-modified: 1616998201933
+  '/sales/summary/customers/{customerId}':
+    summary: 'Get a summary for the sale data of a specific customer. '
+    description: >-
+      The summary contains the number of sales, total payment, and group for a
+      specific customer. 
+    get:
+      tags:
+        - Sales
+      parameters:
+        - deprecated: false
+          example: ''
+          name: customerId
+          description: ID of the customer.
+          schema:
+            example: ''
+          in: path
+          required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Summary'
+          description: >-
+            Response contains a summary of the sales data of a specific
+            customer. 
+          x-last-modified: 1616820406441
+        '404':
+          description: No customer matching the supplied ID was found.
+          x-last-modified: 1616820535388
+      operationId: get summary
+      summary: Get customer's sales summary.
+      description: 'Get a summary of the sale data for a specific customer. '
+    x-last-modified: 1616998893211
+components:
+  schemas:
+    Account:
+      description: Details for an account.
+      required:
+        - id
+        - ' username'
+        - firstName
+        - lastName
+        - group
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        group:
+          type: string
+      example: ''
+      x-last-modified: 1616821575404
+    Customer:
+      description: Details for a customer.
+      required:
+        - id
+        - group
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        group:
+          type: string
+      example: ''
+      x-last-modified: 1616821618547
+    Sale:
+      description: Details for a sale.
+      required:
+        - id
+        - saleDate
+      type: object
+      properties:
+        id:
+          type: string
+        saleDate:
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SaleItem'
+        totals:
+          $ref: '#/components/schemas/Totals'
+      example: ''
+      x-last-modified: 1616821629374
+    Totals:
+      required:
+        - totalPrice
+        - totalTax
+        - totalPayment
+      type: object
+      properties:
+        totalPrice:
+          type: number
+        totalTax:
+          type: number
+        totalPayment:
+          type: number
+      example: ''
+      x-last-modified: 1616822243184
+    SaleItem:
+      required:
+        - productId
+        - quantity
+        - price
+      type: object
+      properties:
+        productId:
+          type: string
+        quantity:
+          type: number
+        price:
+          type: number
+      example: ''
+      x-last-modified: 1616822258608
+    Summary:
+      required:
+        - numberOfSales
+        - totalPayment
+      type: object
+      properties:
+        numberOfSales:
+          type: integer
+        totalPayment:
+          type: number
+        group:
+          type: string
+      example: ''
+      x-last-modified: 1616822296036
+  securitySchemes: {}
+  headers: {}
+  responses: {}
+  parameters: {}
+tags:
+  - name: Sale
+    description: Sale
+    x-last-modified: 1616562338993
+  - name: Sales
+    description: Sales
+    x-last-modified: 1616802584737
+security: []
