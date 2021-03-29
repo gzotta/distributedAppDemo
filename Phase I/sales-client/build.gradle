@@ -23,6 +23,7 @@ sourceSets {
 			implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.2'
 			implementation group: 'io.swagger', name: 'swagger-annotations', version: '1.6.2'
 			implementation group: 'javax.annotation', name: 'javax.annotation-api', version: '1.3.2'
+                        implementation group: 'com.google.guava', name: 'guava', version: '29.0-jre'
 		}
 
 		// generated classes need the main dependencies
