@@ -7,7 +7,6 @@ package resource;
 
 import dao.SaleDAO;
 import domain.ErrorMessage;
-import domain.Sale;
 import org.jooby.Jooby;
 import org.jooby.MediaType;
 import org.jooby.Status;
@@ -16,11 +15,11 @@ import org.jooby.Status;
  *
  * @author zotta
  */
-public class CustomersResource extends Jooby {
+public class SummaryResource extends Jooby {
 
-    public CustomersResource(SaleDAO dao) {
+    public SummaryResource(SaleDAO dao) {
 
-        path("/api/sales/customers/", () -> {
+        path("/api/sales/summary/customers/", () -> {
 
             // A route that sits at the top of the chain that checks that the ID
             // is valid so that the other routes don't need to.
@@ -36,14 +35,16 @@ public class CustomersResource extends Jooby {
                 }
             });
 
-            //Get all sales for a specific customer.
+            //Get a customer's sales summary.
             get("/:customerId", (req) -> {
                 String id = req.param("customerId").value();
-                return dao.getByCustomer(id);
-
+                return dao.getSummary(id);
             });
+            
+            
+            
 
-     
         }).produces(MediaType.json).consumes(MediaType.json);
+
     }
 }
