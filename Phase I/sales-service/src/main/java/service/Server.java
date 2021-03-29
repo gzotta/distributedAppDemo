@@ -6,7 +6,7 @@ import org.jooby.Jooby;
 import org.jooby.handlers.Cors;
 import org.jooby.handlers.CorsHandler;
 import org.jooby.json.Gzon;
-import resource.CustomerResource;
+import resource.CustomersResource;
 import resource.SaleResource;
 import resource.SalesResource;
 
@@ -27,7 +27,7 @@ public class Server extends Jooby {
 
         use(new SalesResource(dao));
         use(new SaleResource(dao));
-        use(new CustomerResource(dao));
+        use(new CustomersResource(dao));
 
     }
 

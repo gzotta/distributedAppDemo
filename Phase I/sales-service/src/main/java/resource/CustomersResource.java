@@ -16,11 +16,11 @@ import org.jooby.Status;
  *
  * @author zotta
  */
-public class CustomerResource extends Jooby {
+public class CustomersResource extends Jooby {
 
-    public CustomerResource(SaleDAO dao) {
+    public CustomersResource(SaleDAO dao) {
 
-        path("/api/sales/sale/{saleId}/customer/", () -> {
+        path("/api/sales/customers/", () -> {
 
             // A route that sits at the top of the chain that checks that the ID
             // is valid so that the other routes don't need to.

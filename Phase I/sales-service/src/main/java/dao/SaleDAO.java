@@ -34,8 +34,15 @@ public class SaleDAO {
             SaleItem item2 = new SaleItem("prodId1", 1.0, 11.0);
             items1.put("prodId1", item1);
             items2.put("prodId2", item2);
-            sales.put("id1", new Sale("id1", "01/02/21", new Customer("customerid1", "email1", "group1"), items1, new Totals(111.0, 0.16, 111.16), "http://localhost:8081/api/sales/sale/id1"));
-            sales.put("id2", new Sale("id2", "02/02/21", new Customer("customerid2", "email2", "group2"), items2, new Totals(112.0, 0.16, 112.16), "http://localhost:8081/api/sales/sale/id2"));
+            Sale sale1 = new Sale("id1", "01/02/21", new Customer("customerid1", "email1", "group1"), items1, new Totals(111.0, 0.16, 111.16), "http://localhost:8081/api/sales/sale/id1");
+            Sale sale2 = new Sale("id2", "02/02/21", new Customer("customerid2", "email2", "group2"), items2, new Totals(112.0, 0.16, 112.16), "http://localhost:8081/api/sales/sale/id2");
+            Sale sale3 = new Sale("id3", "03/03/21", new Customer("customerid1", "email2", "group1"), items2, new Totals(112.0, 0.16, 112.16), "http://localhost:8081/api/sales/sale/id3");
+            sales.put("id1", sale1);
+            sales.put("id2",sale2 );
+            sales.put("id3", sale3);
+            customerSales.put("customerid1",sale1 );
+            customerSales.put("customerid2",sale2 );
+            customerSales.put("customerid1",sale3 );
         }
     }
 
@@ -46,7 +53,7 @@ public class SaleDAO {
      */
     public void addSale(Sale sale) {
         sales.put(sale.getId(), sale);
-        //customerSales.put(sale.getCustomer().getId(), sale);
+        customerSales.put(sale.getCustomer().getId(), sale);
     }
     
     // Get a sale by the sale's ID.

@@ -36,12 +36,13 @@ public class SaleResource extends Jooby {
                 }
             });
 
-    ///////////////////////////////////////////////////////////
+
+    //Method to get a sale by ID. It is a method for debugging, but not part of the project.
 	get("/:id", (req) -> {
 				String id = req.param("id").value();
 				return dao.getById(id);
 			});
-   /////////////////////////////////////////////////////////////////
+
         
         
         
