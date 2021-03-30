@@ -130,7 +130,7 @@ public class SalesApiTest {
     @Test
     public void addSale() throws IOException {
         // call the method being tested
-        Response<Sale> createResponse = salesApi.addSale(sale2).execute();
+        Response<Sale> createResponse = salesApi.addSale(sale1).execute();
 
         // check for 201 response
         assertThat(createResponse.code(), is(201));
