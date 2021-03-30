@@ -80,6 +80,18 @@ public class AccountsTest {
         // check for 201 response
         assertThat(createResponse.code(), is(201));
 
+        // GET the account that was created in the setUp() to check it was saved properly
+        Response<Account> getResponse = accountApi.getAccount(account1.getId()).execute();
+
+        // get the account from the response body
+        Account returnedAccount = getResponse.body();
+
+        // check that returned acccount has the correct properties (except for URI which was set by the service, so will be different)
+        assertThat(returnedAccount, samePropertyValuesAs(account1, "uri"));
+
+        // check that the URI property was properly set by service
+        assertThat(returnedAccount, hasProperty("uri", equalTo("http://localhost:8080/api/accounts/account/id1")));
+
         // call the method again - should get 422 response this time
         createResponse = accountsApi.createAccount(account3).execute();
         assertThat(createResponse.code(), is(422));
@@ -91,7 +103,7 @@ public class AccountsTest {
         // call the method being tested
         Response<List<Account>> getResponse = accountsApi.getAccounts().execute();
 
-        // get the products from the response
+        // get the accounts from the response
         List<Account> returnedAccounts = getResponse.body();
 
         // check for 200 response
