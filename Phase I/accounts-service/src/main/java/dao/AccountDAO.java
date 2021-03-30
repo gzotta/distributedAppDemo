@@ -53,5 +53,8 @@ public class AccountDAO {
         return accounts.containsKey(accountId);
     }
     
+    public Account getAccount(String id){
+        return accounts.get(id);
+    }
     
 }
