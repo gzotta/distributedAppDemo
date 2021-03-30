@@ -36,6 +36,14 @@ public class AccountResource extends Jooby {
                 }
             });
 
+            
+            // Get an account by its ID
+            get("/:id", (req) -> {
+                String id = req.param("id").value();
+                return dao.getAccount(id);
+            });
+
+            
             put("/:id", (req, rsp) -> {
                 String id = req.param("id").value();
                 Account account = req.body().to(Account.class);
