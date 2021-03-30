@@ -1,7 +1,161 @@
-openapi: 3.0.1
+openapi: 3.0.3
 info:
-  title: Your title goes here.
-  description: Replace this file with the YAML for your service.
-  version: "1.0"
+  title: Accounts Service API
+  version: '1.0'
+  description: >-
+    This is a RESTful service that collects accounts information received from
+    Vend.
+  x-logo:
+    url: ''
 servers:
-- url: http://localhost:8080/api
+  - url: 'http://localhost:8080/api'
+    description: ''
+    variables: {}
+    x-last-modified: 1617082679035
+paths:
+  /accounts:
+    get:
+      tags:
+        - Accounts
+      operationId: get accounts
+      description: Get all registered customer accounts.
+      responses:
+        '200':
+          description: An array of all registered customer accounts.
+          content:
+            application/json:
+              example: ''
+              schema:
+                type: array
+                description: ''
+                example: ''
+                externalDocs:
+                  url: ''
+                  description: ''
+                items:
+                  $ref: '#/components/schemas/Account'
+          x-last-modified: 1617081537029
+          headers: {}
+          links: {}
+    post:
+      tags:
+        - Accounts
+      responses:
+        '201':
+          description: >-
+            <p>Account successfully created.</p> <p>The URI of new account is
+            available in the <code>uri</code> field of the response.  The new
+            account is returned in the response.</p>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+          x-last-modified: 1617081816966
+          headers: {}
+          links: {}
+        '422':
+          description: Account <b>NOT</b> created.  An account with that ID already exists.
+          x-last-modified: 1617081968221
+      requestBody:
+        description: The details for the account.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+    x-last-modified: 1617081125216
+  '/accounts/account/{id}':
+    put:
+      tags:
+        - Account
+      requestBody:
+        description: 'The details for the account. '
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+      parameters:
+        - in: path
+          description: Account's ID
+          required: true
+          deprecated: false
+          schema:
+            type: string
+          name: id
+          x-last-modified: 1617082133691
+      responses:
+        '204':
+          description: Account successfully updated.
+          x-last-modified: 1617082167170
+          headers: {}
+          content: {}
+          links: {}
+        '404':
+          description: No account matching the provided ID was found.
+          x-last-modified: 1617082234845
+        '409':
+          description: ' <p>Account <b>NOT</b> updated.</p> <p>Modifying the account''s ID via this operation is not permitted.</p>'
+          x-last-modified: 1617082266877
+    delete:
+      tags:
+        - Account
+      parameters:
+        - in: path
+          description: ID for the account to be deleted.
+          required: true
+          deprecated: false
+          schema:
+            type: string
+          name: id
+          x-last-modified: 1617082335742
+      responses:
+        '204':
+          description: 'Account successfully deleted. '
+          x-last-modified: 1617082363232
+          headers: {}
+          content: {}
+          links: {}
+        '404':
+          description: No account matching the provided ID was found.
+          x-last-modified: 1617082401405
+    x-last-modified: 1617081143511
+components:
+  schemas:
+    Account:
+      description: Details for an account.
+      required:
+        - id
+        - ' username'
+        - firstName
+        - lastName
+        - group
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        group:
+          type: string
+        uri:
+          type: string
+      x-last-modified: 1617081053216
+  securitySchemes: {}
+  headers: {}
+  responses: {}
+  parameters: {}
+tags:
+  - name: Accounts
+    description: Accounts
+    x-last-modified: 1617080976166
+  - name: Account
+    description: Account
+    x-last-modified: 1617080979362
+security: []
