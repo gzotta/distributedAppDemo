@@ -24,8 +24,8 @@ public class AccountDAO {
      */
     static {
         if (accounts.isEmpty()) {
-           accounts.put("accountid1", new Account("accountid1", "email1", "username1", "firstName1", "lastName1", "group1"));
-           accounts.put("accountid2", new Account("accountid2", "email2", "username2", "firstName2", "lastName2", "group2"));
+           accounts.put("accountid1", new Account("accountid1", "email1", "username1", "firstName1", "lastName1", "group1", "http://localhost:8080/api/accounts/account/accountid1"));
+           accounts.put("accountid2", new Account("accountid2", "email2", "username2", "firstName2", "lastName2", "group2", "http://localhost:8080/api/accounts/account/accountid1"));
            
         }
     }
@@ -46,6 +46,11 @@ public class AccountDAO {
     
     public void deleteAccount(String accountId){
         accounts.remove(accountId);
+    }
+    
+
+    public boolean exists(String accountId) {
+        return accounts.containsKey(accountId);
     }
     
     

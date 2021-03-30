@@ -17,17 +17,28 @@ public class Account {
     private String firstName;
     private String lastName;
     private String group;
+    private String uri;
 
     public Account() {
     }
 
-    public Account(String id, String email, String username, String firstName, String lastName, String group) {
+    public Account(String id, String email, String username, String firstName, String lastName, String group, String uri) {
         this.id = id;
         this.email = email;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.group = group;
+        this.uri = uri;
+        
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
     public String getId() {
