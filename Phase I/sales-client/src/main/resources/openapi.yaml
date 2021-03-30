@@ -61,6 +61,33 @@ paths:
       summary: Delete sale.
       description: Delete the sale that matches the supplied ID from the sales.
     x-last-modified: 1616803401972
+    get:
+      description: Get a sale for the given ID.
+      operationId: get by id
+      tags:
+      - Sales
+      parameters:
+        - in: path
+          description: 'ID of a sale. '
+          required: true
+          deprecated: false
+          schema:
+            type: string
+          name: id
+          x-last-modified: 1617102406262
+      responses:
+        '200':
+          description: 'Response contains the details for the matching sale. '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sale'
+          x-last-modified: 1617102464651
+          headers: {}
+          links: {}
+        '404':
+          description: No sale matching the provided ID was found.
+          x-last-modified: 1617102493907
   '/sales/customers/{customerId}':
     summary: Customer sales.
     get:

@@ -46,9 +46,9 @@ public class SalesApiTest {
     private Customer customer1;
     private Customer customer2;
 
-    private static final List<SaleItem> items = new ArrayList<>();
-    private static final List<SaleItem> items2 = new ArrayList<>();
-    private Multimap<String, Sale> customerSales = ArrayListMultimap.create();
+    private  static final List<SaleItem> items = new ArrayList<>();
+    private  static final List<SaleItem> items2 = new ArrayList<>();
+    private static final Multimap<String, Sale> customerSales = ArrayListMultimap.create();
 
     @BeforeEach
     public void setUp() throws IOException {
@@ -130,7 +130,7 @@ public class SalesApiTest {
     @Test
     public void addSale() throws IOException {
         // call the method being tested
-        Response<Sale> createResponse = salesApi.addSale(sale1).execute();
+        Response<Sale> createResponse = salesApi.addSale(sale2).execute();
 
         // check for 201 response
         assertThat(createResponse.code(), is(201));
