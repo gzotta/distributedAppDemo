@@ -5,6 +5,7 @@
  */
 package domain;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,14 +17,14 @@ public class Sale {
     private String id;
     private String saleDate;
     private Customer customer;
-    private Map<String, SaleItem> items;
+    private List<SaleItem>items;
     private Totals totals;
     private String uri;
 
     public Sale() {
     }
 
-    public Sale(String id, String saleDate, Customer customer, Map<String, SaleItem> items, Totals totals, String uri) {
+    public Sale(String id, String saleDate, Customer customer, List<SaleItem> items, Totals totals, String uri) {
         this.id = id;
         this.saleDate = saleDate;
         this.customer = customer;
@@ -56,11 +57,11 @@ public class Sale {
         this.customer = customer;
     }
 
-    public Map<String, SaleItem> getItems() {
+    public List<SaleItem> getItems() {
         return items;
     }
 
-    public void setItems(Map<String, SaleItem> items) {
+    public void setItems(List<SaleItem> items) {
         this.items = items;
     }
 
