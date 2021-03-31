@@ -5,12 +5,13 @@
  */
 package api;
 
-import domain.Account;
+import domain.Customer;
 import domain.Sale;
 import domain.SaleItem;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import org.junit.jupiter.api.AfterEach;
@@ -38,11 +39,14 @@ public class SaleApiTest {
 
     private Sale sale1;
 
+    private Customer customer1;
+
     private SaleItem item1;
-    private ArrayList<SaleItem> items;
+    private SaleItem item2;
+    private List<SaleItem> itemsTest;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws IOException {
         //These first two lines in the setUp method are telling Retrofit to 
         //create client-side stub objects that implement the two generated 
         //interfaces that contatain the API operations. 
@@ -50,19 +54,32 @@ public class SaleApiTest {
         saleApi = retrofit.create(SaleApi.class);
 
         item1 = new SaleItem();
-        item1.setPrice(new BigDecimal(7800.00));
+        item1.setPrice(new BigDecimal("7800.00"));
         item1.setProductId("productId1");
-        item1.setQuantity(new BigDecimal(2.0));
+        item1.setQuantity(new BigDecimal("2.0"));
 
-        items.add(item1);
+        item2 = new SaleItem();
+        item2.setPrice(new BigDecimal("1800.00"));
+        item2.setProductId("productId2");
+        item2.setQuantity(new BigDecimal("1.0"));
+
+        itemsTest = new ArrayList<>();
+        itemsTest.add(item1);
+        itemsTest.add(item2);
+
+        customer1 = new Customer();
+        customer1.setId("customerid1");
+        customer1.setEmail("email1");
+        customer1.setGroup("Regular customers");
 
         sale1 = new Sale();
-        sale1.setItems(items);
+        sale1.setItems(itemsTest);
         sale1.setId("id1");
+        sale1.setCustomer(customer1);
 
-        // POST sale1 to service (leave sale2 for other testing the POST method itself)
-        // salesApi.addSale(sale1).execute();
-        //salesApi.addSale(sale2).execute();
+        // POST sale1 to service 
+        salesApi.addSale(sale1).execute();
+
     }
 
     @AfterEach
