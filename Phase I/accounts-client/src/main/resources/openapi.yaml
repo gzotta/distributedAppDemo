@@ -34,6 +34,7 @@ paths:
           x-last-modified: 1617081537029
       operationId: get accounts
       description: Get all registered customer accounts.
+      summary: 'Get all accounts. '
     post:
       requestBody:
         description: The details for the account.
@@ -59,8 +60,35 @@ paths:
           description: Account <b>NOT</b> created.  An account with that ID already exists.
           x-last-modified: 1617081968221
       operationId: create account
+      description: Create a new account.
+      summary: 'Register an account. '
     x-last-modified: 1617081125216
   '/accounts/account/{id}':
+    get:
+      tags:
+        - Account
+      parameters:
+        - deprecated: false
+          name: id
+          schema:
+            type: string
+          in: path
+          required: true
+          x-last-modified: 1617097451543
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+          description: Response contains details for the matching account.
+          x-last-modified: 1617097555550
+        '404':
+          description: No matching account for the given ID.
+          x-last-modified: 1617097583830
+      operationId: get account
+      description: Get an account for the given ID
+      summary: Get account.
     put:
       requestBody:
         description: 'The details for the account. '
@@ -82,20 +110,15 @@ paths:
           x-last-modified: 1617082133691
       responses:
         '200':
-          description: Response contains details for the matching account.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Account'
+          description: Response contains details for the matching account.
           x-last-modified: 1617097555550
-          headers: {}
-          links: {}
         '204':
           description: Account successfully updated.
           x-last-modified: 1617082167170
-          headers: {}
-          content: {}
-          links: {}
         '404':
           description: No account matching the provided ID was found.
           x-last-modified: 1617082234845
@@ -103,6 +126,8 @@ paths:
           description: ' <p>Account <b>NOT</b> updated.</p> <p>Modifying the account''s ID via this operation is not permitted.</p>'
           x-last-modified: 1617082266877
       operationId: update account
+      description: Update the account that matched the given ID.
+      summary: Update account.
     delete:
       tags:
         - Account
@@ -123,36 +148,9 @@ paths:
           description: No account matching the provided ID was found.
           x-last-modified: 1617082401405
       operationId: delete acount
+      description: Delete the account that matched the given ID.
+      summary: Delete account.
     x-last-modified: 1617081143511
-    get:
-      description: Get an account for the given ID
-      operationId: get account
-      tags:
-      - Account
-      parameters:
-        - in: path
-          required: true
-          deprecated: false
-          schema:
-            type: string
-          name: id
-          x-last-modified: 1617097451543
-      responses:
-        '200':
-          description: Response contains details for the matching account.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Account'
-          x-last-modified: 1617097555550
-          headers: {}
-          links: {}
-        '404':
-          description: No matching account for the given ID.
-          x-last-modified: 1617097583830
-          headers: {}
-          content: {}
-          links: {}
 components:
   schemas:
     Account:
