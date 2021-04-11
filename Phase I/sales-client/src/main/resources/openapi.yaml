@@ -39,31 +39,6 @@ paths:
       summary: Add a new sale
     x-last-modified: 1616802816218
   '/sales/sale/{id}':
-    get:
-      tags:
-        - Sales
-      parameters:
-        - deprecated: false
-          name: id
-          description: 'ID of a sale. '
-          schema:
-            type: string
-          in: path
-          required: true
-          x-last-modified: 1617102406262
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Sale'
-          description: 'Response contains the details for the matching sale. '
-          x-last-modified: 1617102464651
-        '404':
-          description: No sale matching the provided ID was found.
-          x-last-modified: 1617102493907
-      operationId: get by id
-      description: Get a sale for the given ID.
     delete:
       tags:
         - Sale
@@ -116,8 +91,6 @@ paths:
               example: ''
           description: Response contains an array of all of sales of a specific customer.
           x-last-modified: 1616819760629
-          headers: {}
-          links: {}
         '404':
           description: No customer matching the supplied ID was found.
           x-last-modified: 1616825631041
