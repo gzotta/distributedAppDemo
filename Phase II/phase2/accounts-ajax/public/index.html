@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="CreateAccountModule">
+    <head>
+        <script src="js/angular.min.js"></script>
+        <script src="js/angular-resource.min.js"></script>
+        <script src="js/createAccount.js"></script>
+        <title>Create Account</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div ng-controller="CreateAccountController as caCtrl">
+            <h1>Create Account</h1>
+            <fieldset>
+                <legend>Account Details</legend>
+                <form ng-submit="caCtrl.addAccount(account)">
+                    <label>ID:</label>
+                    <input type="text" ng-model="account.id">
+                    <label>E-mail:</label>
+                    <input type="text" ng-model="account.email">
+                    <label>Mobile:</label>
+                    <input type="text" ng-model="account.mobile">
+                    <label>Username:</label>
+                    <input type="text" ng-model="account.name">
+                    <label>First Name:</label>
+                    <input type="text" ng-model="account.first_name">
+                    <label>Last Name:</label>
+                    <input type="text" ng-model="account.last_name">
+                    <label>Group:</label>
+                    <input type="text" ng-model="account.group">
+                    <label>customer_group_id:</label>
+                    <input type="text" ng-model="account.customer_group_id">
+                    <button>Create Account</button>
+                </form>
+            </fieldset>
+        </div>
+    </body>
+</html>

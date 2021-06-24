@@ -1,0 +1,46 @@
+plugins {
+	id 'application'
+}
+
+repositories {
+	jcenter()
+	mavenCentral()
+}
+
+dependencies {
+	implementation group: 'com.launchdarkly', name: 'okhttp-eventsource', version: '2.3.1'
+	implementation group: 'org.apache.activemq', name: 'activemq-client', version: '5.16.2'
+	implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+}
+
+task createMissingSourceDirs {
+	group = "Source Directories"
+	description = "Create all of the missing source directories for this project."
+	doFirst {
+		sourceSets.each { def sourceRoot ->
+			sourceRoot.allSource.srcDirTrees.each { def sourceDir ->
+				if(!sourceDir.dir.exists()) {
+					println "Creating ${sourceDir}"
+					mkdir sourceDir.dir
+				}
+			}
+		}
+	}
+}
+
+task deleteEmptySourceDirs {
+	group = "Source Directories"
+	description = "Delete all empty source directories."
+	doFirst {
+		sourceSets.each { def sourceRoot ->
+			sourceRoot.allSource.srcDirTrees.each { def sourceDir ->
+				if(sourceDir.dir.exists() && sourceDir.dir.isDirectory() && sourceDir.dir.list().length == 0) {
+					println "Removing empty ${sourceDir}"
+					sourceDir.dir.delete()
+				}
+			}
+		}
+	}
+}
+
+mainClassName = 'bridge.BridgeService'
